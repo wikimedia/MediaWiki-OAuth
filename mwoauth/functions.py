@@ -231,7 +231,8 @@ def identify(mw_uri, consumer_token, access_token, leeway=10.0,
         identity = jwt.decode(r.content, consumer_token.secret,
                               audience=consumer_token.key,
                               algorithms=["HS256"],
-                              leeway=leeway)
+                              leeway=leeway,
+                              options={"verify_sub": False})
     except jwt.InvalidTokenError as e:
         if r.text.startswith('{'):
             try:
